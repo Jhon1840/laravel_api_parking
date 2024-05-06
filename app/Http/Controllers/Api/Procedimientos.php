@@ -220,5 +220,33 @@ class Procedimientos extends Controller
         ], 200);
     }
 
+    public function showAllGarajes(Request $request)
+{
+    
+    $user = $request->user();
+    if (!$user) {
+        return response()->json([
+            'message' => 'Usuario no autenticado',
+            'status' => 401
+        ], 401);
+    }
+    
+
+    $garajes = Garaje::with('secciones')->get(); // Obtiene todos los garajes con sus secciones.
+
+    if ($garajes->isEmpty()) {
+        return response()->json([
+            'message' => 'No se encontraron garajes',
+            'status' => 404
+        ], 404);
+    }
+
+    return response()->json([
+        'message' => 'Garajes encontrados exitosamente',
+        'garajes' => $garajes,
+        'status' => 200
+    ], 200);
+}
+
 
 }

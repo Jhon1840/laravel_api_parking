@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\Procedimientos;
     Route::put('/usuarios/{id}', [UserController::class, 'update']); 
     Route::delete('/usuarios/{id}', [UserController::class, 'destroy']);
     Route::post('/logout', [UserController::class, 'logout']);
-
+    
 //Manejo de Garaje, Vehiculo, Seecion
 
 Route::post('/login', [UserController::class, 'login']);
@@ -34,6 +34,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getGarajes', [Procedimientos::class, 'showGaraje']);
 });
 
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/getall', [Procedimientos::class, 'showAllGarajes']);
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/showUser', [Procedimientos::class, 'showUser']);
